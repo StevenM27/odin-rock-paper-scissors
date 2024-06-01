@@ -4,23 +4,32 @@ function getComputerChoice() {
 
   switch (choiceID) {
     case 0:
-      choice = "Rock";
+      choice = "rock";
       break;
   
     case 1:
-      choice = "Paper";
+      choice = "paper";
       break;
 
     case 2:
-      choice = "Scissors";
+      choice = "scissors";
       break;
 
     default:
-      choice = "Rock";
+      choice = "rock";
       break;
   }
 
   return choice;
 }
 
-getComputerChoice();
+
+function getHumanChoice() {
+  return prompt("Rock, Paper, or Scissors?").toLowerCase();
+}
+
+const playerChoice = getHumanChoice();
+const computerChoice = getComputerChoice();
+
+console.log(playerChoice);
+console.log(computerChoice);
