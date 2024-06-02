@@ -78,10 +78,34 @@ function playRound(humanChoice, computerChoice) {
 }
 
 
-const playerSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function declareWinner(humanScore, computerScore) {
+  if (humanScore > computerScore) {
+    console.log("You win!");
+  }
+  else if (computerScore > humanScore) {
+    console.log("You lose!");
+  }
+  else {
+    console.log("Draw!");
+  }
+}
 
-console.log(playerSelection);
-console.log(computerSelection);
 
-playRound(playerSelection, computerSelection);
+function playGame() {
+
+  let playerSelection;
+  let computerSelection;
+
+  for (let i = 0; i < 5; i++) {
+    playerSelection = getHumanChoice();
+    computerSelection = getComputerChoice();
+
+    playRound(playerSelection, computerSelection);
+  }
+
+  declareWinner(humanScore, computerScore);
+
+}
+
+
+playGame();
