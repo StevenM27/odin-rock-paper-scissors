@@ -1,6 +1,14 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const results = document.querySelector("#results");
+const scores = document.querySelector("#scores");
+
+
+function updateScores() {
+  scores.textContent = "Player: " + humanScore + " ----- Computer: " + computerScore; 
+}
+
 
 function getComputerChoice() {
   const choiceID = Math.floor(Math.random() * 3);
@@ -34,20 +42,30 @@ function getHumanChoice() {
 
 
 function win(humanChoice, computerChoice) {
-  console.log("You win! " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) + " beats " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + ".");
+  results.textContent = "You win! " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) + " beats " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + ".";
   humanScore++;
+  updateScores();
 }
 
 
 function lose(humanChoice, computerChoice) {
-  console.log("You lose! " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + " beats " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) + ".");
+  results.textContent = "You lose! " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + " beats " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) + ".";
   computerScore++;
+  updateScores();
 }
 
 
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
+
+  if (humanScore === 5 || computerScore === 5) {
+    results.textContent = "Please refresh the page to play again!";
+    return;
+  }
+
+  let computerChoice = getComputerChoice();
+
   if (humanChoice === computerChoice) {
-    console.log("Tie! You both chose " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1));
+    results.textContent = "Tie! You both chose " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1);
     return;
   }
   
@@ -90,22 +108,12 @@ function declareWinner(humanScore, computerScore) {
   }
 }
 
+const buttons = document.querySelectorAll("button");
 
-function playGame() {
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    playRound(button.id);
+  });
+});
 
-  let playerSelection;
-  let computerSelection;
-
-  for (let i = 0; i < 5; i++) {
-    playerSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-
-    playRound(playerSelection, computerSelection);
-  }
-
-  declareWinner(humanScore, computerScore);
-
-}
-
-
-playGame();
+updateScores();
